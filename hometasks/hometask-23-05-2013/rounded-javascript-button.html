@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" /></head>
+<body>
+
+    <div></div>
+
+    <script>
+
+        /* Скругленая кнопка со стилями из JavaScript, http://learn.javascript.ru/task/skruglenaya-knopka-so-stilyami-iz-javascript */
+        /* Андрей Порубов */
+
+        function createButton(options) {
+            var element = document.createElement('a');
+            var text = options.text || 'Нажми меня';
+
+            element.appendChild(document.createTextNode(text));
+
+            element.style.MozBorderRadius = '8px';
+            element.style.WebkitBorderRadius = '8px';
+            element.style.borderRadius = '8px';
+            element.style.borderWidth = '2px';
+            element.style.borderStyle = 'groove';
+            element.style.borderColor = 'green';
+            element.style.display = 'block';
+            element.style.height = '30px';
+            element.style.lineHeight = '30px';
+            element.style.width = '100px';
+            element.style.textDecoration = 'none';
+            element.style.textAlign = 'center';
+            element.style.color = 'red';
+            element.style.fontWeight = 'bold';
+
+            return element;
+        }
+
+        document.body.children[0].appendChild(createButton({ text: 'Нажми меня' }));
+
+    </script>
+
+</body>
+</html>
