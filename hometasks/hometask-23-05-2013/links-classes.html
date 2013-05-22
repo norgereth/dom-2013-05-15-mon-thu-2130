@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .external { background-color: yellow }
+        </style>
+    </head>
+    <body>
+        <ul>
+            <li><a href="http://google.com">http://google.com</a></li>
+            <li><a href="/tutorial">/tutorial.html</a></li>
+            <li><a href="ftp://ftp.com/my.zip">ftp://ftp.com/my.zip</a></li>
+            <li><a href="http://nodejs.org">http://nodejs.org</a></li>
+            <li><a href="http://javascript.ru/test">http://javascript.ru/test</a></li>
+            <li><a href="ftp://javascript.ru/file">ftp://javascript.ru/file</a></li>
+        </ul>
+        <script>
+
+            /* Поставьте класс ссылкам, http://learn.javascript.ru/task/postavte-klass-ssylkam */
+            /* Андрей Порубов */
+
+            var links = document.body.getElementsByTagName('a');
+            for(var i = 0; i < links.length; i++) {
+                var href = links[i].getAttribute('href');
+                if(!(href.charAt(0) == '/' || ~href.indexOf('javascript.ru'))) {
+                    links[i].className += ' external';
+                }
+            }
+
+        </script>
+    </body>
+</html>
