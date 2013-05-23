@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+        #moving-div {
+            border: 5px groove green;
+            background-color: yellow;
+            padding: 5px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+Before Before Before
+
+<div id="moving-div">
+    Text Text Text<br>
+    Text Text Text<br>
+</div>
+
+After After After
+
+<script>
+
+    /* Подменить div на другой с таким же размером, http://learn.javascript.ru/task/podmenit-div-na-drugoy-s-takim-zhe-razmerom */
+    /* Андрей Порубов */
+
+    var movingDiv = document.getElementById('moving-div');
+    var placeholderDiv = movingDiv.cloneNode(true);
+
+    placeholderDiv.innerHTML = '';
+    placeholderDiv.style.width = movingDiv.offsetWidth + 'px';
+    placeholderDiv.style.height = movingDiv.offsetHeight + 'px';
+    placeholderDiv.style.borderWidth = '0px';
+    placeholderDiv.style.backgroundColor = 'rgb(192, 192, 192)';
+
+    movingDiv.parentNode.insertBefore(placeholderDiv, movingDiv);
+
+    movingDiv.style.position = 'absolute';
+    movingDiv.style.right = movingDiv.style.top = 0;
+
+</script>
+
+</body>
+</html>
