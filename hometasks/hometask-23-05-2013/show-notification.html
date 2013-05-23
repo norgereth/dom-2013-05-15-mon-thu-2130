@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <style>
+        .notification {
+            position: fixed;
+            z-index: 1000;
+            padding: 5px;
+            border: 1px solid black;
+            font: normal 20px Georgia;
+            background: white;
+            text-align: center;
+        }
+        .welcome {
+            background: red;
+            color: yellow;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Уведомление</h2>
+
+<p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum aspernatur quam ex eaque inventore quod voluptatem adipisci omnis nemo nulla fugit iste numquam ducimus cumque minima porro ea quidem maxime necessitatibus beatae labore soluta voluptatum magnam consequatur sit laboriosam velit excepturi laborum sequi eos placeat et quia deleniti? Corrupti velit impedit autem et obcaecati fuga debitis nemo ratione iste veniam amet dicta hic ipsam unde cupiditate incidunt aut iure ipsum officiis soluta temporibus. Tempore dicta ullam delectus numquam consectetur quisquam explicabo culpa excepturi placeat quo sequi molestias reprehenderit hic at nemo cumque voluptates quidem repellendus maiores unde earum molestiae ad.
+</p>
+
+<script>
+
+    /* Создать уведомление, http://learn.javascript.ru/task/sozdat-uvedomlenie */
+    /* Андрей Порубов */
+
+    function createNotification(options) {
+        var notification = document.createElement('div');
+
+        notification.className = 'notification';
+        if(options.className) notification.className += ' ' + options.className;
+        notification.appendChild(document.createTextNode(options.text || 'Привет'));
+
+        notification.style.top = (options.top || 10) + 'px';
+        notification.style.right = (options.right || 10) + 'px';
+
+        return notification;
+    }
+
+    function removeNotification(notification) {
+        document.body.removeChild(notification);
+    }
+
+    var notification = null;
+    var notificationCounter = 0;
+
+    setInterval(function() {
+        if(notification) removeNotification(notification);
+        notification = createNotification({
+           text: 'Привет ' + ++notificationCounter,
+           className: 'welcome'
+        });
+        document.body.appendChild(notification);
+    }, 1000);
+
+</script>
+
+
+</body>
+</html>
