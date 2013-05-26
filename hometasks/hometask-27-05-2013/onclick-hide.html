@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+
+<input type="button" id="hider" value="Нажмите, чтобы спрятать текст"/>
+
+<div id="hide">Текст</div>
+
+<script>
+
+    /* Спрятать при клике, http://learn.javascript.ru/task/spryatat-pri-klike */
+    /* Андрей Порубов */
+
+    var button = document.getElementById('hider');
+    var div = document.getElementById('hide');
+
+    button.onclick = function() {
+        div.style.display = 'none';
+    };
+
+</script>
+</body>
+</html>
