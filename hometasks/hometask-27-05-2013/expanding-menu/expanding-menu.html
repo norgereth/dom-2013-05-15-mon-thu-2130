@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        .menu .menu-title {
+            cursor: pointer;
+            background: url(arrow-right.png) left no-repeat;
+            padding-left: 14px;
+        }
+        .menu.menu-expanded .menu-title {
+            background: url(arrow-down.png) left no-repeat;
+        }
+        .menu .menu-items {
+            cursor: pointer;
+            list-style: none;
+            padding-left: 20px;
+            margin: 0;
+            display: none;
+        }
+        .menu.menu-expanded .menu-items {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div id="menu-container"></div>
+
+<script>
+
+    /* Раскрывающееся меню, http://learn.javascript.ru/task/raskryvausheesya-menu */
+    /* Андрей Порубов */
+
+    // ----------- компонент меню --------------
+
+    function Menu(options) {
+
+        // --- инициализация ---
+
+        var titleText, items = [],
+            containerElement, titleElement, itemsElement;
+
+        init(options);
+        render();
+
+        // --- приватные методы ---
+
+        function init(options) {
+            titleText = options.title || 'Заголовок меню';
+            items = options.items;
+        }
+
+        function render() {
+            var i, li;
+
+            containerElement = document.createElement('div');
+            containerElement.className = 'menu';
+
+            titleElement = document.createElement('div');
+            titleElement.className = 'menu-title';
+            titleElement.appendChild(document.createTextNode(titleText));
+            titleElement.onclick = onTitleElementClick;
+
+            itemsElement = document.createElement('ul');
+            itemsElement.className = 'menu-items';
+            for(i = 0; i < items.length; i++) {
+                li = document.createElement('li');
+                li.appendChild(document.createTextNode(items[i]));
+                itemsElement.appendChild(li);
+            }
+
+            containerElement.appendChild(titleElement);
+            containerElement.appendChild(itemsElement);
+
+            options.element.innerHTML = '';
+            options.element.appendChild(containerElement);
+        }
+
+        function collapse() {
+            removeClass(containerElement, 'menu-expanded');
+        }
+
+        function expand() {
+            addClass(containerElement, 'menu-expanded')
+        }
+
+        function toggle() {
+            if(hasClass(containerElement, 'menu-expanded')) {
+                collapse();
+            } else {
+                expand();
+            }
+        }
+
+        function addClass(el, cls) {
+            for(var c = el.className.split(' '),i=c.length-1; i>=0; i--) {
+                if (c[i] == cls) return;
+            }
+            if (el.className == "") el.className = cls
+            else el.className += ' '+cls
+        }
+
+        function hasClass(el, cls) {
+            for(var c = el.className.split(' '),i=c.length-1; i>=0; i--) {
+                if (c[i] == cls) return true;
+            }
+            return false;
+        }
+
+        function removeClass(el, cls) {
+            for(var c = el.className.split(' '),i=c.length-1; i>=0; i--) {
+                if (c[i] == cls) c.splice(i,1);
+            }
+            el.className = c.join(' ');
+        }
+
+        // --- обработчики событий ---
+
+        function onTitleElementClick() {
+            toggle();
+        }
+
+        // --- публичные методы ---
+
+        this.collapse = function() {
+            collapse();
+        };
+
+        this.expand = function() {
+            expand();
+        };
+
+        this.toggle = function() {
+            toggle();
+        }
+
+    }
+
+    // ----------- создание компонента меню --------------
+
+    var menu = new Menu({
+        element: document.getElementById('menu-container'),
+        title: 'Сладости (нажми меня)!',
+        items: [ 'Торт', 'Пончик', 'Пирожное' ]
+    });
+
+</script>
+
+</body>
+</html>
