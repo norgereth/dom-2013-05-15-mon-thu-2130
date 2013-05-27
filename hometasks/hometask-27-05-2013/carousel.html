@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="carousel.css" />
+</head>
+
+<body>
+
+<!-- ваша верстка виджета, ваши стили -->
+<div id="carousel" class="carousel">
+    <div class="carousel-control carousel-prev">‹ </div>
+    <div class="carousel-gallery">
+        <ul class="carousel-items">
+            <li><img src="1.png"></li>
+            <li><img src="2.png"></li>
+            <li><img src="3.png"></li>
+            <li><img src="4.png"></li>
+            <li><img src="5.png"></li>
+            <li><img src="6.png"></li>
+            <li><img src="7.png"></li>
+            <li><img src="8.png"></li>
+            <li><img src="9.png"></li>
+            <li><img src="10.png"></li>
+        </ul>
+    </div>
+    <div class="carousel-control carousel-next">› </div>
+</div>
+
+<script>
+
+    /* Карусель, http://learn.javascript.ru/task/karusel */
+    /* Андрей Порубов */
+
+    /* этот код помечает картинки цифрами, для удобства разработки
+     его можно убрать, если не нужен */
+    var lis = document.getElementsByTagName('li');
+    for(var i=0; i<lis.length; i++) {
+        lis[i].style.position='relative';
+        var span = document.createElement('span');
+        span.style.cssText='position:absolute;left:0;top:0';
+        span.innerHTML = i+1;
+        lis[i].appendChild(span);
+    }
+
+    // ----------- компонент карусели --------------
+
+    function Carousel(options) {
+
+        // --- инициализация ---
+
+        var container;
+
+        // --- приватные методы ---
+
+        function init() {
+            container = options.element;
+        }
+    }
+
+    // ----------- создание компонента карусели --------------
+
+    var carousel = new Carousel({
+        element: document.getElementById('images')
+    });
+
+</script>
+
+<script>
+
+    // ваш код..
+
+</script>
+</body>
+</html>
