@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="carousel.css" />
@@ -48,27 +49,66 @@
 
         // --- инициализация ---
 
-        var container;
+        var container, prev, next, list, itemsCount;
+
+        var IMG_WIDTH = 130, // ширина изображения
+            IMG_COUNT = 3; //  количество видимых изображений в карусели
+
+        init();
 
         // --- приватные методы ---
 
         function init() {
             container = options.element;
+            prev = container.querySelector('.carousel-prev');
+            next = container.querySelector('.carousel-next');
+            list = container.querySelector('.carousel-items');
+            itemsCount = list.getElementsByTagName('li').length;
+            prev.onclick = onPrevClick;
+            next.onclick = onNextClick;
+            prev.onmousedown = prev.onselectstart = next.onmousedown = next.onselectstart = function() { return false; };
+            list.style.marginLeft = 0;
         }
+
+        function scrollPrev() {
+            if(!parseInt(list.style.marginLeft)) return;
+            list.style.marginLeft = (parseInt(list.style.marginLeft) + 130) + 'px';
+        }
+
+        function scrollNext() {
+            if(parseInt(list.style.marginLeft) == (-1 * (itemsCount - IMG_COUNT) * IMG_WIDTH)) return;
+            list.style.marginLeft = (parseInt(list.style.marginLeft) - 130) + 'px';
+        }
+
+        // --- обработчики событий ---
+
+        function onPrevClick() {
+            scrollPrev();
+        }
+
+        function onNextClick() {
+            scrollNext();
+        }
+
+        // --- приватные методы ---
+
+        this.scrollPrev = function() {
+            scrollPrev();
+        };
+
+        this.scrollNext = function() {
+            scrollNext();
+        };
+
     }
 
     // ----------- создание компонента карусели --------------
 
     var carousel = new Carousel({
-        element: document.getElementById('images')
+        element: document.getElementById('carousel')
     });
 
 </script>
 
-<script>
-
-    // ваш код..
-
-</script>
 </body>
 </html>
