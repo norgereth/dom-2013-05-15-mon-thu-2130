@@ -45,6 +45,7 @@ Shift+Клик добавляет промежуток от последнего
 
         function init() {
             list = $(options.element).addClass('selectable-list');
+
             list.on('click', 'li', onItemClick);
             list.on('selectstart mousedown contextmenu', function(event) { event.preventDefault(); } );
         }
@@ -59,12 +60,16 @@ Shift+Клик добавляет промежуток от последнего
 
         function selectRange(firstItem, secondItem) {
             var items, firstItemIndex, secondItemIndex, startIndex, endIndex;
+
             if(!firstItem || !secondItem) return;
+
             items = list.find('li');
+
             firstItemIndex = items.index(firstItem);
             secondItemIndex = items.index(secondItem);
             startIndex = Math.min(firstItemIndex, secondItemIndex);
             endIndex = Math.max(firstItemIndex, secondItemIndex);
+
             items.slice(startIndex, endIndex + 1).addClass('selected');
         }
 
@@ -76,18 +81,18 @@ Shift+Клик добавляет промежуток от последнего
 
         function onItemClick(event) {
             var item = $(event.target);
+
             if(event.ctrlKey) {
                 toggleItem(item);
-                rememberItem(item);
             } else if(event.shiftKey) {
                 unselectAll();
                 selectRange(lastSelectedItem, item);
-                rememberItem(item);
             } else {
                 unselectAll();
                 toggleItem(item);
-                rememberItem(item);
             }
+
+            rememberItem(item);
         }
 
     }
