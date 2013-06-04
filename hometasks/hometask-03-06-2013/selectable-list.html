@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8">
     <style>
-        .selected {
-            background: #0f0;
-        }
-        li {
+        .selectable-list > li {
             cursor: pointer;
+        }
+        .selectable-list > li.selected {
+            background: #0f0;
         }
     </style>
 </head>
@@ -31,22 +31,71 @@ Shift+Клик добавляет промежуток от последнего
     /* Список с выделением, http://learn.javascript.ru/task/spisok-s-vydeleniem */
     /* Андрей Порубов */
 
+    // === компонент списка с выделением ===
+
     function SelectableList(options) {
 
-        var list;
+        // --- инициализация ---
+
+        var list, lastSelectedItem;
 
         init();
 
-        function init() {
-            list = options.element;
+        // --- приватные методы ---
 
-            list.on('click', 'li');
+        function init() {
+            list = $(options.element).addClass('selectable-list');
+            list.on('click', 'li', onItemClick);
+            list.on('selectstart mousedown contextmenu', function(event) { event.preventDefault(); } );
+        }
+
+        function toggleItem(item) {
+            item.toggleClass('selected');
+        }
+
+        function rememberItem(item) {
+            if(item.hasClass('selected')) lastSelectedItem = item;
+        }
+
+        function selectRange(firstItem, secondItem) {
+            var items, firstItemIndex, secondItemIndex, startIndex, endIndex;
+            if(!firstItem || !secondItem) return;
+            items = list.find('li');
+            firstItemIndex = items.index(firstItem);
+            secondItemIndex = items.index(secondItem);
+            startIndex = Math.min(firstItemIndex, secondItemIndex);
+            endIndex = Math.max(firstItemIndex, secondItemIndex);
+            items.slice(startIndex, endIndex + 1).addClass('selected');
+        }
+
+        function unselectAll() {
+            list.find('li').removeClass('selected');
+        }
+
+        // --- обработчики событий ---
+
+        function onItemClick(event) {
+            var item = $(event.target);
+            if(event.ctrlKey) {
+                toggleItem(item);
+                rememberItem(item);
+            } else if(event.shiftKey) {
+                unselectAll();
+                selectRange(lastSelectedItem, item);
+                rememberItem(item);
+            } else {
+                unselectAll();
+                toggleItem(item);
+                rememberItem(item);
+            }
         }
 
     }
 
+    // === создание компонента списка с выделением ===
+
     var selectableList = new SelectableList({
-        element: $(document.children[0])
+        element: $('ul').first()
     });
 
 </script>
