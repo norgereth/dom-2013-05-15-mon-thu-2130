@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <style>
+
+        /* стили для css-кнопки */
+
+        .button-css {
+            width: 186px;
+            height: 52px;
+            background: url(button.png) no-repeat;
+        }
+        .button-css:hover {
+            background-position: 0 -52px;
+        }
+        .button-css:active {
+            background-position: 0 -104px;
+        }
+
+        /* стили для js-кнопки */
+
+        .button-js {
+            width: 186px;
+            height: 52px;
+            background: url(button.png) no-repeat;
+        }
+        .button-js-hover {
+            background-position: 0 -52px;
+        }
+        .button-js-active {
+            background-position: 0 -104px;
+        }
+
+    </style>
+</head>
+<body>
+
+Решение через CSS
+<div class="button-css"></div>
+
+Решение через JS
+<div class="button-js"></div>
+
+<script src="jquery-1.10.1.min.js"></script>
+<script>
+
+    /* Выделение кнопки при заходе и клике, http://learn.javascript.ru/task/vydelenie-knopki-pri-zahode-i-klike */
+    /* Андрей Порубов */
+
+    $('.button-js').mouseenter(function() {
+        $(this).addClass('button-js-hover');
+    }).mouseleave(function() {
+        $(this).removeClass('button-js-hover');
+    }).mousedown(function() {
+        $(this).addClass('button-js-active');
+    }).mouseup(function() {
+        $(this).removeClass('button-js-active');
+    });
+
+</script>
+
+</body>
+</html>
