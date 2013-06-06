@@ -6,6 +6,18 @@
         body {
             height: 2000px; /* подсказка должна работать независимо от прокрутки */
         }
+        .tooltip {
+            position: absolute;
+            z-index: 100;
+            padding: 10px 20px;
+            border: 1px solid #b3c9ce;
+            border-radius: 4px;
+            text-align: center;
+            font: italic 14px/1.3 arial, sans-serif;
+            color: #333;
+            background: #fff;
+            box-shadow: 3px 3px 3px rgba(0, 0, 0, .3);
+        }
     </style>
 </head>
 <body>
@@ -18,50 +30,32 @@
 
 <p>Прокрутите страницу и проверьте, правильно ли показывается подсказка</p>
 
+<script src="jquery-1.10.1.min.js"></script>
 <script>
 
     /* Поведение "подсказка", http://learn.javascript.ru/task/povedenie-podskazka */
     /* Андрей Порубов */
 
-    // ------------  вспомогательные функции
+    /* Вопрос: почему подсказка "мерцает" при наведении на элемент? */
 
-    function getCoords(elem) {
-        var box = elem.getBoundingClientRect();
+    var tooltip;
 
-        var body = document.body;
-        var docEl = document.documentElement;
+    $(document).mouseover(function(event) {
 
-        var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-        var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+        var target = $(event.target), tooltipHTML;
 
-        var clientTop = docEl.clientTop || body.clientTop || 0;
-        var clientLeft = docEl.clientLeft || body.clientLeft || 0;
+        if(!(tooltipHTML = target.data('tooltip'))) return;
 
-        var top  = box.top +  scrollTop - clientTop;
-        var left = box.left + scrollLeft - clientLeft;
+        tooltip = $('<div class="tooltip"></div>').html(tooltipHTML).appendTo('body').offset({
+            top: target.offset().top,
+            left: target.offset().left
+        });
 
-        return { top: Math.round(top), left: Math.round(left) };
-    }
+    }).mouseout(function() {
 
-    function getPageScroll() {
-        if (window.pageXOffset != undefined) {
-            return {
-                left: pageXOffset,
-                top: pageYOffset
-            }
-        }
+        if(tooltip) tooltip.remove();
 
-        var html = document.documentElement;
-        var body = document.body;
-
-        var top = html.scrollTop || body && body.scrollTop || 0;
-        top -= html.clientTop;
-
-        var left = html.scrollLeft || body && body.scrollLeft || 0;
-        left -= html.clientLeft;
-
-        return { top: top, left: left };
-    }
+    });
 
 </script>
 
