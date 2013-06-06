@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        body {
+            height: 2000px;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+
+    /* Запретите прокрутку страницы, http://learn.javascript.ru/task/zapretite-prokrutku-stranicy */
+    /* Андрей Порубов */
+
+    document.onmousewheel = document.onwheel = function() { return false; };
+    document.addEventListener ('MozMousePixelScroll', function() { return false }, false);
+    document.onkeydown = function(e) { if (e.keyCode >= 33 && e.keyCode <= 40) return false; }
+
+</script>
+
+</body>
+</html>
