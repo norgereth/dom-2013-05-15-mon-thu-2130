@@ -1,0 +1,3 @@
+http://learn.javascript.ru/play/oonMk
++ сделать выбор значения по клику
++ туториалы (2+) http://learn.knockoutjs.com/
