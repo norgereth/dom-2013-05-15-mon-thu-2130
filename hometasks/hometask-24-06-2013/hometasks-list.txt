@@ -1,0 +1,2 @@
+http://learn.javascript.ru/templates
+http://learn.javascript.ru/play/8Ctmub - добавить сортировку
